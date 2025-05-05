@@ -15,6 +15,9 @@ export const handleOSCommand = (flag) => {
         );
       });
       break;
+    case "--homedir":
+      console.log(os.homedir());
+      break;
 
     default:
       console.log("Invalid input");
