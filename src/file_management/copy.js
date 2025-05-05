@@ -10,17 +10,17 @@ export const copy = async (sourcePath, destDir) => {
     const writeStream = fs.createWriteStream(destPath);
 
     readStream.on("error", () => {
-      console.error("FS operation failed");
+      console.error("Operation failed");
     });
 
     writeStream.on("error", () => {
-      console.error("FS operation failed");
+      console.error("Operation failed");
     });
 
     readStream.pipe(writeStream).on("finish", () => {
       console.log("Copy complete");
     });
   } catch (err) {
-    console.error("FS operation failed");
+    console.error("Operation failed");
   }
 };

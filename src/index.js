@@ -7,6 +7,7 @@ import { add } from "./file_management/createFile.js";
 import { mkdir } from "./file_management/createFolder.js";
 import { rename } from "./file_management/rename.js";
 import { copy } from "./file_management/copy.js";
+import { move } from "./file_management/move.js";
 
 const username = process.env.npm_config_username || "unknown";
 
@@ -90,6 +91,16 @@ rl.on("line", async (line) => {
         const resolvedSrc = resolvePath(copyFilePath);
         const resolvedDest = resolvePath(copyNewFilePath);
         await copy(resolvedSrc, resolvedDest);
+      } else {
+        console.log("Invalid input");
+      }
+      break;
+    case "mv":
+      const [moveFilePath, moveNewFilePath] = consoleArg.split(" ");
+      if (moveFilePath && moveNewFilePath) {
+        const resolvedSrc = resolvePath(moveFilePath);
+        const resolvedDest = resolvePath(moveNewFilePath);
+        await move(resolvedSrc, resolvedDest);
       } else {
         console.log("Invalid input");
       }
