@@ -9,6 +9,7 @@ import { rename } from "./file_management/rename.js";
 import { copy } from "./file_management/copy.js";
 import { move } from "./file_management/move.js";
 import { remove } from "./file_management/delete.js";
+import { handleOSCommand } from "./os/os.js";
 
 const username = process.env.npm_config_username || "unknown";
 
@@ -116,6 +117,15 @@ rl.on("line", async (line) => {
         console.log("Invalid input");
       }
       break;
+
+    case "os":
+      if (args.length === 1) {
+        handleOSCommand(args[0]);
+      } else {
+        console.log("Invalid input");
+      }
+      break;
+
     default:
       console.log("Invalid input");
   }
