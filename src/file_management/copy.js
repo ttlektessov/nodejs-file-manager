@@ -1,19 +1,26 @@
 import fs from "node:fs";
+import path from "node:path";
 
-const folderName = "src/fs/files";
-const copyFolderName = "src/fs/files_copy";
+export const copy = async (sourcePath, destDir) => {
+  try {
+    const fileName = path.basename(sourcePath);
+    const destPath = path.join(destDir, fileName);
 
-const copy = async () => {
-  if (fs.existsSync(copyFolderName) || !fs.existsSync(folderName)) {
-    console.error("FS operation failed");
-    return;
-  }
-  fs.cp(folderName, copyFolderName, { recursive: true }, (err) => {
-    if (err) console.error("FS operation failed");
-    else {
+    const readStream = fs.createReadStream(sourcePath);
+    const writeStream = fs.createWriteStream(destPath);
+
+    readStream.on("error", () => {
+      console.error("FS operation failed");
+    });
+
+    writeStream.on("error", () => {
+      console.error("FS operation failed");
+    });
+
+    readStream.pipe(writeStream).on("finish", () => {
       console.log("Copy complete");
-    }
-  });
+    });
+  } catch (err) {
+    console.error("FS operation failed");
+  }
 };
-
-await copy();

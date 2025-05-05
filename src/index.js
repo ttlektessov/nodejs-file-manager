@@ -1,11 +1,12 @@
 import { homedir } from "os";
 import readline from "readline";
+import { resolvePath } from "./utils/utils.js";
 import { up, cd, ls, setCurrentDir, printCurrentDir } from "./nav/nav.js";
 import { cat } from "./file_management/read.js";
 import { add } from "./file_management/createFile.js";
 import { mkdir } from "./file_management/createFolder.js";
 import { rename } from "./file_management/rename.js";
-import { resolvePath } from "./utils/utils.js";
+import { copy } from "./file_management/copy.js";
 
 const username = process.env.npm_config_username || "unknown";
 
@@ -72,11 +73,23 @@ rl.on("line", async (line) => {
       break;
 
     case "rn":
-      const [filePath, fileName] = consoleArg.split(" ");
-      if (filePath && fileName) {
-        const resolvedOldPath = resolvePath(filePath);
-        const resolvedNewPath = resolvePath(fileName);
+      const [renameFilePath, ...nameParts] = consoleArg.split(" ");
+      const renameFileName = nameParts.join(" ");
+      if (renameFilePath && renameFileName) {
+        const resolvedOldPath = resolvePath(renameFilePath);
+        const resolvedNewPath = resolvePath(renameFileName);
         await rename(resolvedOldPath, resolvedNewPath);
+      } else {
+        console.log("Invalid input");
+      }
+      break;
+
+    case "cp":
+      const [copyFilePath, copyNewFilePath] = consoleArg.split(" ");
+      if (copyFilePath && copyNewFilePath) {
+        const resolvedSrc = resolvePath(copyFilePath);
+        const resolvedDest = resolvePath(copyNewFilePath);
+        await copy(resolvedSrc, resolvedDest);
       } else {
         console.log("Invalid input");
       }
