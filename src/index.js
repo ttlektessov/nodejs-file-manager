@@ -11,6 +11,7 @@ import { move } from "./file_management/move.js";
 import { remove } from "./file_management/delete.js";
 import { handleOSCommand } from "./os/os.js";
 import { hash } from "./hash/hash.js";
+import { compress } from "./zip/compress.js";
 const username = process.env.npm_config_username || "unknown";
 
 console.log(`Welcome to the File Manager, ${username}!`);
@@ -129,6 +130,15 @@ rl.on("line", async (line) => {
     case "hash":
       if (consoleArg) {
         await hash(consoleArg);
+      } else {
+        console.log("Invalid input");
+      }
+      break;
+
+    case "compress":
+      const [compressFilePath, compressDestPath] = consoleArg.split(" ");
+      if (compressFilePath && compressDestPath) {
+        await compress(compressFilePath, compressDestPath);
       } else {
         console.log("Invalid input");
       }
