@@ -3,6 +3,7 @@ import readline from "readline";
 import { up, cd, ls, setCurrentDir, printCurrentDir } from "./nav/nav.js";
 import { cat } from "./file_management/read.js";
 import { add } from "./file_management/createFile.js";
+import { mkdir } from "./file_management/createFolder.js";
 const username = process.env.npm_config_username || "unknown";
 
 console.log(`Welcome to the File Manager, ${username}!`);
@@ -53,6 +54,13 @@ rl.on("line", async (line) => {
     case "add":
       if (consoleArg) {
         await add(consoleArg);
+      } else {
+        console.log("Invalid input");
+      }
+      break;
+    case "mkdir":
+      if (consoleArg) {
+        await mkdir(consoleArg);
       } else {
         console.log("Invalid input");
       }

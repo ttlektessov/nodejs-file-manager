@@ -7,7 +7,7 @@ export const add = async (fileName) => {
   const filePath = path.join(currentDir, fileName);
 
   if (fs.existsSync(filePath)) {
-    console.log("File already exists");
+    console.log("Operation failed");
     return;
   }
 
