@@ -1,4 +1,4 @@
-import fs from "node:fs";
+import fs from "node:fs/promises";
 import path from "path";
 import { getCurrentDir } from "../nav/nav.js";
 
@@ -6,16 +6,10 @@ export const mkdir = async (folderName) => {
   const currentDir = getCurrentDir();
   const folderPath = path.join(currentDir, folderName);
 
-  if (fs.existsSync(folderPath)) {
-    console.log("Operation failed");
-    return;
+  try {
+    await fs.mkdir(folderPath);
+    console.log("Folder created successfully");
+  } catch (err) {
+    console.error("Operation failed");
   }
-
-  fs.mkdir(folderPath, (err) => {
-    if (err) {
-      console.error("Operation failed");
-    } else {
-      console.log("Folder created successfully");
-    }
-  });
 };

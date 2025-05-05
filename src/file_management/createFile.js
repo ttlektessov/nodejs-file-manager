@@ -1,4 +1,4 @@
-import fs from "node:fs";
+import fs from "node:fs/promises";
 import path from "path";
 import { getCurrentDir } from "../nav/nav.js";
 
@@ -6,16 +6,10 @@ export const add = async (fileName) => {
   const currentDir = getCurrentDir();
   const filePath = path.join(currentDir, fileName);
 
-  if (fs.existsSync(filePath)) {
-    console.log("Operation failed");
-    return;
+  try {
+    await fs.writeFile(filePath, "");
+    console.log("File created successfully");
+  } catch {
+    console.error("Operation failed");
   }
-
-  fs.writeFile(filePath, "", (err) => {
-    if (err) {
-      console.error("Operation failed");
-    } else {
-      console.log("File created successfully");
-    }
-  });
 };
