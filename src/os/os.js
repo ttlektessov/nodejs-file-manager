@@ -21,6 +21,9 @@ export const handleOSCommand = (flag) => {
     case "--username":
       console.log(os.userInfo().username);
       break;
+    case "--architecture":
+      console.log(process.arch);
+      break;
     default:
       console.log("Invalid input");
   }
