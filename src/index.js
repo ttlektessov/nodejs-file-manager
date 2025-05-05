@@ -1,7 +1,6 @@
 import { homedir } from "os";
 import readline from "readline";
 
-const args = process.argv.slice(2);
 const username = process.env.npm_config_username || "unknown";
 let currDir = homedir();
 
