@@ -1,15 +1,14 @@
 import { homedir } from "os";
 import readline from "readline";
+import { up, cd, ls, setCurrentDir, printCurrentDir } from "./nav/nav.js";
 
 const username = process.env.npm_config_username || "unknown";
-let currDir = homedir();
 
 console.log(`Welcome to the File Manager, ${username}!`);
-console.log(`You are currently in ${currDir}`);
 
-const printDir = () => {
-  console.log(`You are currently in ${currDir}`);
-};
+const homeDir = homedir();
+setCurrentDir(homeDir);
+printCurrentDir();
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -18,14 +17,35 @@ const rl = readline.createInterface({
 });
 
 rl.on("line", async (line) => {
-  const command = line.trim();
+  const input = line.trim();
+  const [cmd, ...args] = input.split(" ");
+  const pathArg = args.join(" ");
+  switch (cmd) {
+    case ".exit":
+      rl.close();
+      return;
 
-  if (command === ".exit") {
-    rl.close();
-    return;
+    case "up":
+      up();
+      break;
+
+    case "ls":
+      await ls();
+      break;
+
+    case "cd":
+      if (pathArg) {
+        await cd(pathArg);
+      } else {
+        console.log("Invalid input.");
+      }
+      break;
+
+    default:
+      console.log("Invalid input.");
   }
-  console.log("Invalid input.");
-  printDir();
+
+  printCurrentDir();
   rl.prompt();
 });
 
