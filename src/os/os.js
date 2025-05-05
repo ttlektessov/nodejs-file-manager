@@ -18,7 +18,9 @@ export const handleOSCommand = (flag) => {
     case "--homedir":
       console.log(os.homedir());
       break;
-
+    case "--username":
+      console.log(os.userInfo().username);
+      break;
     default:
       console.log("Invalid input");
   }
