@@ -1,16 +1,16 @@
 import { createReadStream, createWriteStream } from "node:fs";
-import { createBrotliCompress } from "node:zlib";
+import { createBrotliDecompress } from "node:zlib";
 import { pipeline } from "node:stream";
 import { resolvePath } from "../utils/utils.js";
 
-export const compress = async (src, dest) => {
+export const decompress = async (src, dest) => {
   try {
-    const fileToCompressPath = resolvePath(src);
-    const archivePath = resolvePath(dest);
+    const archivePath = resolvePath(src);
+    const extractedPath = resolvePath(dest);
 
-    const source = createReadStream(fileToCompressPath);
-    const destination = createWriteStream(archivePath);
-    const brotli = createBrotliCompress();
+    const source = createReadStream(archivePath);
+    const destination = createWriteStream(extractedPath);
+    const brotli = createBrotliDecompress();
 
     pipeline(source, brotli, destination, (err) => {
       if (err) {

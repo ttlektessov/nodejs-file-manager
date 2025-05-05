@@ -12,6 +12,7 @@ import { remove } from "./file_management/delete.js";
 import { handleOSCommand } from "./os/os.js";
 import { hash } from "./hash/hash.js";
 import { compress } from "./zip/compress.js";
+import { decompress } from "./zip/decompress.js";
 const username = process.env.npm_config_username || "unknown";
 
 console.log(`Welcome to the File Manager, ${username}!`);
@@ -135,10 +136,23 @@ rl.on("line", async (line) => {
       }
       break;
 
+    // When using the compress command, don't forget to add the file extension to the destination path
+    // (ex: compress C:\Users\yourname\randomfile.txt C:\Users\yourname\randomfile.txt.br)
     case "compress":
       const [compressFilePath, compressDestPath] = consoleArg.split(" ");
       if (compressFilePath && compressDestPath) {
         await compress(compressFilePath, compressDestPath);
+      } else {
+        console.log("Invalid input");
+      }
+      break;
+
+    // Same here, don't forget to add the file extension to the destination path
+    // (ex: compress C:\Users\yourname\randomfile.txt C:\Users\yourname\randomfile.txt.br)
+    case "decompress":
+      const [decompressFilePath, decompressDestPath] = consoleArg.split(" ");
+      if (decompressFilePath && decompressDestPath) {
+        await decompress(decompressFilePath, decompressDestPath);
       } else {
         console.log("Invalid input");
       }

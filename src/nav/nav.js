@@ -1,6 +1,6 @@
 import path from "path";
-import fs from "fs";
-import { statSync } from "fs";
+import fs from "fs/promises";
+import { stat } from "fs/promises";
 
 let currentDir = process.cwd();
 export const setCurrentDir = (dir) => {
@@ -21,7 +21,7 @@ export const cd = async (targetPath) => {
     ? targetPath
     : path.resolve(currentDir, targetPath);
   try {
-    const stats = statSync(newPath);
+    const stats = await stat(newPath);
     if (stats.isDirectory()) {
       currentDir = newPath;
     } else {
