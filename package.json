@@ -1,0 +1,29 @@
+{
+  "name": "nodejs-file-manager",
+  "version": "1.0.0",
+  "description": "project for rs school node.js course task",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ttlektessov/nodejs-file-manager.git"
+  },
+  "keywords": [
+    "cli",
+    "fs",
+    "streams",
+    "os",
+    "hash",
+    "zip"
+  ],
+  "author": "Temirlan Tlektessov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ttlektessov/nodejs-file-manager/issues"
+  },
+  "homepage": "https://github.com/ttlektessov/nodejs-file-manager#readme",
+  "type": "module"
+}
