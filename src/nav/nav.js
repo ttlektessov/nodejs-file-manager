@@ -57,3 +57,5 @@ export const ls = async () => {
 export const printCurrentDir = () => {
   console.log(`You are currently in ${currentDir}`);
 };
+
+export const getCurrentDir = () => currentDir;

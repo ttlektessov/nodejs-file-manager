@@ -1,6 +1,7 @@
 import { homedir } from "os";
 import readline from "readline";
 import { up, cd, ls, setCurrentDir, printCurrentDir } from "./nav/nav.js";
+import { cat } from "./file_management/read.js";
 
 const username = process.env.npm_config_username || "unknown";
 
@@ -38,6 +39,14 @@ rl.on("line", async (line) => {
         await cd(pathArg);
       } else {
         console.log("Invalid input.");
+      }
+      break;
+
+    case "cat":
+      if (pathArg) {
+        await cat(pathArg);
+      } else {
+        console.log("Invalid input");
       }
       break;
 
