@@ -2,7 +2,7 @@ import { homedir } from "os";
 import readline from "readline";
 import { up, cd, ls, setCurrentDir, printCurrentDir } from "./nav/nav.js";
 import { cat } from "./file_management/read.js";
-
+import { add } from "./file_management/createFile.js";
 const username = process.env.npm_config_username || "unknown";
 
 console.log(`Welcome to the File Manager, ${username}!`);
@@ -20,7 +20,7 @@ const rl = readline.createInterface({
 rl.on("line", async (line) => {
   const input = line.trim();
   const [cmd, ...args] = input.split(" ");
-  const pathArg = args.join(" ");
+  const consoleArg = args.join(" ");
   switch (cmd) {
     case ".exit":
       rl.close();
@@ -35,23 +35,31 @@ rl.on("line", async (line) => {
       break;
 
     case "cd":
-      if (pathArg) {
-        await cd(pathArg);
+      if (consoleArg) {
+        await cd(consoleArg);
       } else {
-        console.log("Invalid input.");
+        console.log("Invalid input");
       }
       break;
 
     case "cat":
-      if (pathArg) {
-        await cat(pathArg);
+      if (consoleArg) {
+        await cat(consoleArg);
+      } else {
+        console.log("Invalid input");
+      }
+      break;
+
+    case "add":
+      if (consoleArg) {
+        await add(consoleArg);
       } else {
         console.log("Invalid input");
       }
       break;
 
     default:
-      console.log("Invalid input.");
+      console.log("Invalid input");
   }
 
   printCurrentDir();

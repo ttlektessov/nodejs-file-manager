@@ -1,16 +1,21 @@
 import fs from "node:fs";
+import path from "path";
+import { getCurrentDir } from "../nav/nav.js";
 
-const create = async () => {
-  if (fs.existsSync("src/fs/files/fresh.txt")) {
-    console.error("FS operation failed");
+export const add = async (fileName) => {
+  const currentDir = getCurrentDir();
+  const filePath = path.join(currentDir, fileName);
+
+  if (fs.existsSync(filePath)) {
+    console.log("File already exists");
     return;
   }
-  fs.writeFile("src/fs/files/fresh.txt", "I am fresh and young", (err) => {
-    if (err) console.error("FS operation failed");
-    else {
-      console.log("Create success");
+
+  fs.writeFile(filePath, "", (err) => {
+    if (err) {
+      console.error("Operation failed");
+    } else {
+      console.log("File created successfully");
     }
   });
 };
-
-await create();
