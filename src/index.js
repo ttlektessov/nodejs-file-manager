@@ -10,7 +10,7 @@ import { copy } from "./file_management/copy.js";
 import { move } from "./file_management/move.js";
 import { remove } from "./file_management/delete.js";
 import { handleOSCommand } from "./os/os.js";
-
+import { hash } from "./hash/hash.js";
 const username = process.env.npm_config_username || "unknown";
 
 console.log(`Welcome to the File Manager, ${username}!`);
@@ -121,6 +121,14 @@ rl.on("line", async (line) => {
     case "os":
       if (args.length === 1) {
         handleOSCommand(args[0]);
+      } else {
+        console.log("Invalid input");
+      }
+      break;
+
+    case "hash":
+      if (consoleArg) {
+        await hash(consoleArg);
       } else {
         console.log("Invalid input");
       }
